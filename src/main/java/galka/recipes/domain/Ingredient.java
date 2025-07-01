@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jdk.jfr.Description;
 
 import java.math.BigDecimal;
 
@@ -18,13 +19,24 @@ public class Ingredient {
     private String description;
     private BigDecimal amount;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    //@OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private UnitOfMeasure uom;
 
     //Recipe к которому относится данный Ingredient и здесь будет создана связь таблиц
     //relation ingredient to recipe @ManyToOne
     @ManyToOne
     private Recipe recipe;
+
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
 
     public Long getId() {
         return id;
