@@ -1,13 +1,10 @@
 package galka.recipes.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jdk.jfr.Description;
 
 import java.math.BigDecimal;
 
@@ -28,8 +25,8 @@ public class Ingredient {
     @ManyToOne
     private Recipe recipe;
 
-    public Ingredient() {
-    }
+   public Ingredient(String string, BigDecimal bigDecimal, UnitOfMeasure tableSpoonUom) {
+   }
 
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
         this.description = description;
