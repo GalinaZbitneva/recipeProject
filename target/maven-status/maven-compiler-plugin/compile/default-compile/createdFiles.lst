@@ -1,0 +1,14 @@
+galka/recipes/services/RecipeServiceImpl.class
+galka/recipes/RecipesApplication.class
+galka/recipes/repositories/RecipeRepository.class
+galka/recipes/bootstrap/RecipeBootstrap.class
+galka/recipes/repositories/UnitOfMeasureRepository.class
+galka/recipes/domain/Recipe.class
+galka/recipes/domain/Category.class
+galka/recipes/services/RecipeService.class
+galka/recipes/domain/UnitOfMeasure.class
+galka/recipes/domain/Notes.class
+galka/recipes/repositories/CategoryRepository.class
+galka/recipes/controllers/IndexController.class
+galka/recipes/domain/Ingredient.class
+galka/recipes/domain/Difficulty.class

@@ -1,0 +1,14 @@
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/RecipesApplication.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/bootstrap/RecipeBootstrap.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/controllers/IndexController.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/domain/Category.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/domain/Difficulty.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/domain/Ingredient.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/domain/Notes.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/domain/Recipe.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/domain/UnitOfMeasure.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/repositories/CategoryRepository.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/repositories/RecipeRepository.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/repositories/UnitOfMeasureRepository.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/services/RecipeService.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/main/java/galka/recipes/services/RecipeServiceImpl.java
