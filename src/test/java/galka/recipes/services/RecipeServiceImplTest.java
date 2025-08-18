@@ -1,0 +1,56 @@
+package galka.recipes.services;
+
+import galka.recipes.domain.Recipe;
+import galka.recipes.repositories.RecipeRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class RecipeServiceImplTest {
+
+    RecipeServiceImpl recipeService;
+
+    @Mock
+    RecipeRepository recipeRepository;
+
+    @BeforeEach
+    public void setUp(){
+        //обращаемся к Mockito чтобы заработал @Mock
+        MockitoAnnotations.openMocks(this);
+        recipeService = new RecipeServiceImpl(recipeRepository);
+
+    }
+
+    @Test
+    void getRecipes() throws Exception{
+        Recipe recipe = new Recipe();
+        Recipe recipe2 = new Recipe();
+        //второй рецепт придется добавлять с указанием индекса, иначе он не добавится в сет
+        recipe2.setId(2L);
+        Set<Recipe> recipesData =new HashSet<>();
+        recipesData.add(recipe);
+        recipesData.add(recipe2);
+
+        //строчка говорит: если я вызываю метод findAll() у мок объекта recipeRepository, то надо вернуть recipesData
+        when(recipeRepository.findAll()).thenReturn(recipesData);
+
+        //
+        Set<Recipe> recipes = recipeService.getRecipes();
+        assertEquals(2,recipes.size());
+        //этой строчкой говорим что у мока recipeRepository метод findAll был вызван только один раз
+        verify(recipeRepository,times(1)).findAll();
+    }
+}

@@ -1,1 +1,5 @@
 /Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/test/java/galka/recipes/RecipesApplicationTests.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/test/java/galka/recipes/controllers/IndexControllerTest.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/test/java/galka/recipes/domain/CategoryTest.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/test/java/galka/recipes/repositories/UnitOfMeasureRepositoryIT.java
+/Users/galinazbitneva/Documents/JAVA_projects/recipeProject/src/test/java/galka/recipes/services/RecipeServiceImplTest.java

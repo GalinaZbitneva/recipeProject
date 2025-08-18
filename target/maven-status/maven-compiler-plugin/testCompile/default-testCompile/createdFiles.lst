@@ -1,1 +1,5 @@
+galka/recipes/services/RecipeServiceImplTest.class
+galka/recipes/controllers/IndexControllerTest.class
+galka/recipes/domain/CategoryTest.class
 galka/recipes/RecipesApplicationTests.class
+galka/recipes/repositories/UnitOfMeasureRepositoryIT.class
