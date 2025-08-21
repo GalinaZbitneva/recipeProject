@@ -140,6 +140,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
+        guacRecipe.setUrl("https://downshiftology.com/recipes/best-ever-guacamole/");
+        guacRecipe.setServings(4);
         //add to return list
         recipes.add(guacRecipe);
 
