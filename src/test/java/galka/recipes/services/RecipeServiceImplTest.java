@@ -1,5 +1,7 @@
 package galka.recipes.services;
 
+import galka.recipes.converters.RecipeCommandToRecipe;
+import galka.recipes.converters.RecipeToRecipeCommand;
 import galka.recipes.domain.Recipe;
 import galka.recipes.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,11 +31,18 @@ class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+
     @BeforeEach
     public void setUp(){
         //обращаемся к Mockito чтобы заработал @Mock
         MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository,recipeCommandToRecipe,recipeToRecipeCommand);
 
     }
 
