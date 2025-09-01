@@ -80,4 +80,5 @@ class RecipeServiceImplTest {
         verify(recipeRepository, never()).findAll();
     }
 
+
 }

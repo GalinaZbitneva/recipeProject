@@ -43,7 +43,7 @@ class IngredientCommandToIngredientTest {
         ingredientCommand.setId(ID_VALUE);
         ingredientCommand.setAmount(AMOUNT);
         ingredientCommand.setDescription(DESCRIPTION);
-        ingredientCommand.setUnitOfMeasure(uom);
+        ingredientCommand.setUom(uom);
 
         Ingredient ingredient =  converter.convert(ingredientCommand);
 
