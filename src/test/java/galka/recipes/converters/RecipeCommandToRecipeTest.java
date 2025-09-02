@@ -27,7 +27,10 @@ class RecipeCommandToRecipeTest {
     public static final Long CAT_ID2 = 2L;
     public static final Long INGRED_ID_1 = 3L;
     public static final Long INGRED_ID_2 = 4L;
-    public static final Long NOTES_ID = 9L;
+    public static final Long NOTES_ID = 1L;
+    //важно!!! ID для NOTES и для RECIPE совпадают тк создаются они одновременно и они тесно связаны.
+    // NOTES привязаны только к одному конкретному рецепту. связь one to one
+
 
     @BeforeEach
     public void setUp() throws Exception {

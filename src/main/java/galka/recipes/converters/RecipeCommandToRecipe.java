@@ -45,7 +45,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         recipe.setDifficulty(source.getDifficulty());
 
         //нам нужна привязка заметок к конкретному рецепту, иначе происходит дубликация в Н2 базе данных по айди
-        //те мы заметкам источника присваиваем айди рецепта-источника чтобы не создавался новый айди как я поняла
+        //те мы заметкам источника присваиваем айди рецепта-источника (это нормально, так как рецепт и заметки к нему создаются одновременно и айди у них совпадает )чтобы не создавался новый айди как я поняла
         source.getNotes().setId(source.getId());
         recipe.setNotes(notesConverter.convert(source.getNotes()));
 

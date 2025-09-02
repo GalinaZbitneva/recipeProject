@@ -5,6 +5,7 @@ import galka.recipes.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-
+    @GetMapping
     @RequestMapping("/recipe/show/{id}")
     public String showById(@PathVariable String id, Model model){
         Long longId = Long.valueOf(id);
@@ -30,6 +31,7 @@ public class RecipeController {
 
 
     //в браузере мы перейдем на вкладку с формой для создания нового рецепта, с присвоением  атрибута recipe типа RecipeCommand
+    @GetMapping
     @RequestMapping({"recipe/new"})
     public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
@@ -44,11 +46,23 @@ public class RecipeController {
         return "redirect:/recipe/show/" + savedCommand.getId();
     }
 
+    @GetMapping
     @RequestMapping("recipe/update/{id}")
     public String updateRecipe(@PathVariable String id, Model model){
         Long londId = Long.valueOf(id);
         model.addAttribute("recipe", recipeService.findCommandById(londId));
         return "recipe/recipeform";
     }
+
+   @GetMapping
+    @RequestMapping("recipe/delete/{id}")
+    public  String deleteRecipe(@PathVariable String id){
+        Long londId = Long.valueOf(id);
+        log.debug("Deleting id: " + id);
+        recipeService.deleteRecipeById(londId);
+        return "redirect:/";
+
+    }
+
 
 }
