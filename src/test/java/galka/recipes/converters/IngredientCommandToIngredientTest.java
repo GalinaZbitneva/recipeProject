@@ -17,6 +17,7 @@ class IngredientCommandToIngredientTest {
     public static final String DESCRIPTION = "Cheeseburger";
     public static final Long ID_VALUE = 1L;
     public static final Long UOM_ID = 2L;
+    public static final Long RECIPE_ID = 3L;
 
 
     @BeforeEach
@@ -44,6 +45,7 @@ class IngredientCommandToIngredientTest {
         ingredientCommand.setAmount(AMOUNT);
         ingredientCommand.setDescription(DESCRIPTION);
         ingredientCommand.setUom(uom);
+        //ingredientCommand.setRecipeId(RECIPE_ID);
 
         Ingredient ingredient =  converter.convert(ingredientCommand);
 
@@ -51,6 +53,7 @@ class IngredientCommandToIngredientTest {
         assertEquals(ID_VALUE, ingredient.getId());
         assertEquals(DESCRIPTION, ingredient.getDescription());
         assertEquals(UOM_ID, ingredient.getUom().getId());
+
         assertNotNull(ingredient);
         assertNotNull(ingredient.getUom());
     }
