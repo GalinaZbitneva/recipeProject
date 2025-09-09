@@ -1,12 +1,16 @@
 package galka.recipes.controllers;
 
+import galka.recipes.commands.IngredientCommand;
 import galka.recipes.services.IngredientService;
 import galka.recipes.services.RecipeService;
+import galka.recipes.services.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -15,10 +19,12 @@ public class IngredientController {
 
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
+    private final UnitOfMeasureService unitOfMeasureService;
 
-    public IngredientController(RecipeService recipeService, IngredientService ingredientService) {
+    public IngredientController(RecipeService recipeService, IngredientService ingredientService, UnitOfMeasureService unitOfMeasureService) {
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
+        this.unitOfMeasureService = unitOfMeasureService;
     }
 
     @GetMapping
@@ -39,6 +45,28 @@ public class IngredientController {
         model.addAttribute("ingredient",ingredientService.findByRecipeIdAndIngredientId(longRecipeId,longIngredientId) );
 
         return "recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/{ingredientId}/update")
+    public String updateIngredient(@PathVariable String recipeId,
+                                   @PathVariable String ingredientId, Model model){
+        Long longRecipeId = Long.valueOf(recipeId);
+        Long longIngredientId = Long.valueOf(ingredientId);
+        model.addAttribute("ingredient",ingredientService.findByRecipeIdAndIngredientId(longRecipeId,longIngredientId) );
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms() );
+
+        return "recipe/ingredient/ingredientform";
+    }
+
+    @PostMapping("recipe/{recipeId}/ingredient")
+    public String saveOrUpdate(@ModelAttribute IngredientCommand command){
+        IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
+
+        log.debug("saved receipe id:" + savedCommand.getRecipeId());
+        log.debug("saved ingredient id:" + savedCommand.getId());
+
+        return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
     }
 
 }
