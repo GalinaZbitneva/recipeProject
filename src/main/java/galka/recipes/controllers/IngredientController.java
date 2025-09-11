@@ -1,6 +1,8 @@
 package galka.recipes.controllers;
 
 import galka.recipes.commands.IngredientCommand;
+import galka.recipes.commands.RecipeCommand;
+import galka.recipes.commands.UnitOfMeasureCommand;
 import galka.recipes.services.IngredientService;
 import galka.recipes.services.RecipeService;
 import galka.recipes.services.UnitOfMeasureService;
@@ -48,6 +50,21 @@ public class IngredientController {
     }
 
     @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable String recipeId, Model model ){
+        Long longRecipeId = Long.valueOf(recipeId);
+        RecipeCommand recipeCommand = recipeService.findCommandById(longRecipeId);
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(longRecipeId);
+        model.addAttribute("ingredient", ingredientCommand);
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+        //в результате переходим на страницу редактирования ингридиента
+
+        return "recipe/ingredient/ingredientform";
+    }
+
+    @GetMapping
     @RequestMapping("/recipe/{recipeId}/ingredient/{ingredientId}/update")
     public String updateIngredient(@PathVariable String recipeId,
                                    @PathVariable String ingredientId, Model model){
@@ -55,7 +72,7 @@ public class IngredientController {
         Long longIngredientId = Long.valueOf(ingredientId);
         model.addAttribute("ingredient",ingredientService.findByRecipeIdAndIngredientId(longRecipeId,longIngredientId) );
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms() );
-
+//в результате переходим на страницу редактирования ингридиента
         return "recipe/ingredient/ingredientform";
     }
 
