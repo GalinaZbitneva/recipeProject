@@ -3,6 +3,7 @@ package galka.recipes.controllers;
 import galka.recipes.commands.IngredientCommand;
 import galka.recipes.commands.RecipeCommand;
 import galka.recipes.commands.UnitOfMeasureCommand;
+import galka.recipes.domain.Ingredient;
 import galka.recipes.services.IngredientService;
 import galka.recipes.services.RecipeService;
 import galka.recipes.services.UnitOfMeasureService;
@@ -84,6 +85,15 @@ public class IngredientController {
         log.debug("saved ingredient id:" + savedCommand.getId());
 
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/{ingredientId}/delete")
+    public  String deleteIngredientInRecipe(@PathVariable String recipeId, @PathVariable String ingredientId){
+        Long longRecipeId = Long.valueOf(recipeId);
+        Long longIngredientId = Long.valueOf(ingredientId);
+        ingredientService.deleteIngredientInRecipe(longRecipeId,longIngredientId);
+        return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 
 }
