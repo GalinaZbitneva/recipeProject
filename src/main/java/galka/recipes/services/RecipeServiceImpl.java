@@ -59,7 +59,7 @@ public class RecipeServiceImpl implements RecipeService{
     @Override
     @Transactional
     public RecipeCommand findCommandById(Long id) {
-
+//внасале находит рецепт из репозитория по айди, потом конвертирует его в комманд
         return recipeToRecipeCommand.convert(getRecipeById(id));
     }
 
