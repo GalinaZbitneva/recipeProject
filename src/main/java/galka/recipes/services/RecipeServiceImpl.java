@@ -4,6 +4,7 @@ import galka.recipes.commands.RecipeCommand;
 import galka.recipes.converters.RecipeCommandToRecipe;
 import galka.recipes.converters.RecipeToRecipeCommand;
 import galka.recipes.domain.Recipe;
+import galka.recipes.exceptions.NotFoundException;
 import galka.recipes.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,10 +42,12 @@ public class RecipeServiceImpl implements RecipeService{
     public Recipe getRecipeById(Long id){
        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
        if(!recipeOptional.isPresent()){
-           throw  new RuntimeException("Recipe is not found");
+           //throw new RuntimeException("Recipe is not found");
+           throw  new NotFoundException("Recipe is not found. For ID value: " + id.toString() );
        }
        return recipeOptional.get();
     }
+
 
     @Override
     @Transactional

@@ -2,6 +2,7 @@ package galka.recipes.controllers;
 
 import galka.recipes.commands.RecipeCommand;
 import galka.recipes.domain.Recipe;
+import galka.recipes.exceptions.NotFoundException;
 import galka.recipes.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -96,7 +97,19 @@ class RecipeControllerTest {
                 .andExpect(model().attributeExists("recipe"));
     }
 
+@Test
+    public void getRecipeNotFound() throws Exception{
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
 
+        when(recipeService.getRecipeById(anyLong())).thenThrow(NotFoundException.class);
+//важно класс NotFoundException обозначить @ResponseStatus(HttpStatus.NOT_FOUND) тогда код ошибки будет 404
+    //если класс так не обозначить, то в случае отсутсвия нужной страницы код ошибки будет другой
+        mockMvc.perform(get("/recipe/show/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
+        //@ResponseStatus(HttpStatus.NOT_FOUND) нужно также указать в class RecipeController  в методе  public ModelAndView handleNotFound
+}
 
 
 

@@ -3,6 +3,7 @@ package galka.recipes.services;
 import galka.recipes.converters.RecipeCommandToRecipe;
 import galka.recipes.converters.RecipeToRecipeCommand;
 import galka.recipes.domain.Recipe;
+import galka.recipes.exceptions.NotFoundException;
 import galka.recipes.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,11 +18,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 class RecipeServiceImplTest {
@@ -79,6 +82,19 @@ class RecipeServiceImplTest {
         verify(recipeRepository,times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
+
+    @Test
+    public void getRecipeByIdTestNotFound() throws Exception{
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, ()->recipeService.getRecipeById(1L), "Expected exception to throw an error. But it didn't ");
+
+        assertTrue(notFoundException.getMessage().contains("Recipe is not found"));
+        //"Recipe is not found" именно такой текст в случае ошибки  в методе getRecipeById(Long id) class RecipeServiceImpl
+    }
+
 
     @Test
     void deleteRecipeById() {
