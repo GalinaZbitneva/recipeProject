@@ -42,7 +42,10 @@ class ImageControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         controller = new ImageController(imageService,recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
+
     }
 
     @Test
@@ -73,7 +76,7 @@ class ImageControllerTest {
 
         mockMvc.perform(multipart("/recipe/1/image").file(multipartFile))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(header().string("Location", "/recipe/1/show"));
+                .andExpect(header().string("Location", "/recipe/show/1"));
 
         verify(imageService, times(1)).saveImageFile(anyLong(), any());
     }
@@ -110,5 +113,12 @@ class ImageControllerTest {
         byte[] reponseBytes = response.getContentAsByteArray();
 
         assertEquals(s.getBytes().length, reponseBytes.length);
+    }
+
+    @Test
+    public void testGetImageNumberFormatException() throws Exception{
+        mockMvc.perform(get("/recipe/xxx/recipeimage"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
     }
 }

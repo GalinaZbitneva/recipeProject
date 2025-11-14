@@ -84,20 +84,7 @@ public class RecipeController {
     }
 
 
-    //срабатывает в случае если в строке неверный запрос с ошибками например буквы вместо цифр
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormat(Exception exception){
 
-        log.error("Handling number format exception");
-        log.error(exception.getMessage());
-
-        ModelAndView modelAndView = new ModelAndView();
-        //имя файла html
-        modelAndView.setViewName("400error");
-        modelAndView.addObject("exception", exception);
-        return modelAndView;
-    }
 
 
 
