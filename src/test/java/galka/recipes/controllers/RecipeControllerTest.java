@@ -111,6 +111,15 @@ class RecipeControllerTest {
         //@ResponseStatus(HttpStatus.NOT_FOUND) нужно также указать в class RecipeController  в методе  public ModelAndView handleNotFound
 }
 
+    @Test
+    public void getRecipeNotFoundNumberFormatException() throws Exception {
+        mockMvc.perform(get("/recipe/show/smk"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
+
+
+    }
+
 
 
 }
