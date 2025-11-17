@@ -73,17 +73,20 @@ class RecipeControllerTest {
     @Test
     public void testPostNewRecipeForm() throws Exception {
         RecipeCommand command = new RecipeCommand();
-        command.setId(3L);
+        command.setId(2L);
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
         mockMvc.perform(post("/recipe/")
                                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                .param("id", "")
-//                .param("description", "some string")
-                )
+               .param("id", "")
+                .param("description", "some string")
+                .param("directions","somedirections"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/show/3"));
+                .andExpect(view().name("redirect:/recipe/show/2"));
+
+        //нужно поставить breakpoint в RecipeController в методе пост saveOrUpdate в строчке  bindingResult.getAllErrors().forEach(objectError -> {log.debug(objectError.toString());});
+        //тогда в консоли будет видно где не хватало значения в нашем случае в .param("directions","somedirections"))
     }
 
     @Test
@@ -119,8 +122,27 @@ class RecipeControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("400error"));
 
+    }
+
+    @Test
+    public void testPostNewValidationFail() throws Exception{
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(2L);
+
+        when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
+
+        mockMvc.perform(post("/recipe/")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("id", "")
+
+                )
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("recipe"))
+                .andExpect(view().name("recipe/recipeform"));
 
     }
+
+
 
 
 }
